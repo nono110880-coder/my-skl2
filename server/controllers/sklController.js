@@ -298,7 +298,7 @@ const cetakSkl = async (req, res) => {
         </html>
         `;
 
-        const browser = await puppeteer.launch({ headless: "new" });
+        const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
 
         await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
@@ -602,7 +602,7 @@ const cetakBerkas = async (req, res) => {
         </html>
         `;
 
-        const browser = await puppeteer.launch({ headless: "new" });
+        const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
         await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
         const sklPdfBuffer = await page.pdf({

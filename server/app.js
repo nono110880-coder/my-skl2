@@ -17,6 +17,16 @@ app.use(cors({
 
 app.use(express.json({ limit: '10mb' }));
 
+// --- SECURITY MIDDLEWARE ---
+// Mencegah akses ke file sensitif backend dari luar
+app.use((req, res, next) => {
+    const url = req.path.toLowerCase();
+    if (url.startsWith('/server') || url.includes('.env') || url.includes('.git')) {
+        return res.status(403).send('Forbidden: Akses ditolak ke direktori/file sensitif.');
+    }
+    next();
+});
+
 // --- SERVE STATIC FILES ---
 // Menyajikan file index.html, login.html, app.js dari folder utama
 app.use(express.static(path.join(__dirname, '../')));
