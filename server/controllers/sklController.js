@@ -178,7 +178,7 @@ const cetakSkl = async (req, res) => {
             .kop-logo { width: 15%; }
             .kop-logo img { width: 100px; } /* Lebar logo */
             .kop-text { line-height: 1.1; }
-            .kementerian { font-size: 16pt; }
+            .kementerian { font-size: 15pt; }
             .sains { font-size: 16pt; }
             .univ { font-size: 14pt; font-weight: bold; }
             .fakultas { font-size: 14pt; font-weight: bold; }
@@ -193,17 +193,17 @@ const cetakSkl = async (req, res) => {
             table.content { 
                 width: 100%; 
                 border-collapse: collapse; 
-                margin: 15px 0; 
+                margin: 10px 0; 
                 table-layout: fixed;
             }
-            table.content td { padding: 3px 0; vertical-align: top; }
+            table.content td { padding: 1px 0; vertical-align: top; line-height: 1.25; }
             .col-1 { width: 30%; }
             .col-2 { width: 3%; text-align: left; }
             .col-3 { width: 66%; text-align: justify;}
 
             /* AREA TANDA TANGAN */
-            .signature-section { margin-top: 15px; width: 100%; }
-            .photo-box { border: 1px solid #000; width: 3cm; height: 4cm; float: left; margin-left: 110px; display: table; margin-top: 10px; }
+            .signature-section { margin-top: calc(15px + 1cm); width: 100%; }
+            .photo-box { border: 1px solid #000; width: 3cm; height: 4cm; float: left; margin-left: calc(110px + 1.5cm); display: table; margin-top: 10px; }
             .photo-text { display: table-cell; vertical-align: middle; text-align: center; font-size: 10pt; line-height: 1.2; }
             .signature { float: right; width: 40%; padding-left: 20px; }
             .clearfix::after { content: ""; clear: both; display: table; }
@@ -260,22 +260,17 @@ const cetakSkl = async (req, res) => {
             <p>Dekan Fakultas Ekonomi dan Bisnis menerangkan dengan sebenarnya, bahwa :</p>
             
             <table class="content">
-    <tr><td class="col-1">Nama</td><td class="col-2">:</td><td class="col-3">${formatBesarKecil(data.nama_mahasiswa)}</td></tr>
-    
-    <tr><td>NIM</td><td>:</td><td>${data.nim || '-'}</td></tr>
-    
-    <tr><td>Jurusan</td><td>:</td><td>${formatBesarKecil(data.jurusan)}</td></tr>
-    <tr><td>Program Studi</td><td>:</td><td>${formatBesarKecil(data.program_studi)}</td></tr>
-    <tr><td>Tempat/ Tgl. Lahir</td><td>:</td><td>${formatBesarKecil(data.tempat_lahir)}, ${formatBesarKecil(formatDateNormal(data.tanggal_lahir))}</td></tr>
-    
-    <tr><td>Judul Tugas Akhir</td><td>:</td><td>${data.judul_tugas_akhir ? data.judul_tugas_akhir.toUpperCase() : '-'}</td></tr>
-    
-    <tr><td>No. Ijasah Nasional</td><td>:</td><td>${data.nin || '-'}</td></tr>
-    <tr><td>No. Transkrip Nilai</td><td>:</td><td>${data.nomor_transkrip || '-'}</td></tr>
-    <tr><td>IPK</td><td>:</td><td>${parseFloat(data.ipk).toFixed(2)}</td></tr>
-    
-    <tr><td>Predikat Kelulusan</td><td>:</td><td>${formatBesarKecil(data.predikat)}</td></tr>
-</table>
+                <tr><td class="col-1">Nama</td><td class="col-2">:</td><td class="col-3">${formatBesarKecil(data.nama_mahasiswa)}</td></tr>
+                <tr><td>NIM</td><td>:</td><td>${data.nim || '-'}</td></tr>
+                <tr><td>Jurusan</td><td>:</td><td>${formatBesarKecil(data.jurusan)}</td></tr>
+                <tr><td>Program Studi</td><td>:</td><td>${formatBesarKecil(data.program_studi)}</td></tr>
+                <tr><td>Tempat/ Tgl. Lahir</td><td>:</td><td>${formatBesarKecil(data.tempat_lahir)}, ${formatBesarKecil(formatDateNormal(data.tanggal_lahir))}</td></tr>
+                <tr><td>Judul Tugas Akhir</td><td>:</td><td>${data.judul_tugas_akhir ? data.judul_tugas_akhir : '-'}</td></tr>
+                <tr><td>No. Ijasah Nasional</td><td>:</td><td>${data.nin || '-'}</td></tr>
+                <tr><td>No. Transkrip Nilai</td><td>:</td><td>${data.nomor_transkrip || '-'}</td></tr>
+                <tr><td>IPK</td><td>:</td><td>${parseFloat(data.ipk).toFixed(2)}</td></tr>
+                <tr><td>Predikat Kelulusan</td><td>:</td><td>${formatBesarKecil(data.predikat)}</td></tr>
+            </table>
             </div>
 
             <p style="text-align: justify; margin-top: 15px;">Berdasarkan Berita Acara Ujian tanggal ${formatDateNormal(data.tanggal_lulus)}, yang bersangkutan telah dinyatakan "LULUS" pada Jurusan ${data.jurusan} Program Studi ${data.program_studi} dan berhak mengikuti pelaksanaan wisuda. Ijasah dan Transkrip nilai masih dalam proses penyelesaian oleh Fakultas Ekonomi dan Bisnis Universitas Jember. Surat ini berlaku selama 3 (tiga) bulan sejak diterbitkan.</p>
@@ -311,7 +306,7 @@ const cetakSkl = async (req, res) => {
         const pdfBuffer = await page.pdf({
             format: 'A4',
             printBackground: true,
-            margin: { top: '1cm', right: '2.2cm', bottom: '0cm', left: '2.2cm' }
+            margin: { top: '1cm', right: '2cm', bottom: '0cm', left: '2cm' }
         });
 
         await browser.close();
@@ -418,7 +413,7 @@ const uploadTranskrip = async (req, res) => {
 const cetakTranskrip = async (req, res) => {
     try {
         const { id } = req.params;
-        
+
         // 1. Ambil data mahasiswa untuk nama file
         const { data: mhs, error: errMhs } = await supabase.from('skl_mahasiswa').select('nim').eq('id', id).single();
         if (errMhs || !mhs) throw new Error("Data mahasiswa tidak ditemukan");
@@ -452,10 +447,10 @@ const cetakTranskrip = async (req, res) => {
         for (const idx of transkripPageIndices) {
             const transkripPage = transkripPdf.getPages()[idx];
             const embeddedTranskrip = await mergedPdf.embedPage(transkripPage);
-            
+
             // Buat halaman baru dengan ukuran sesuai Kop Surat
             const newPage = mergedPdf.addPage([embeddedKopSurat.width, embeddedKopSurat.height]);
-            
+
             // Draw Kop Surat sebagai background
             newPage.drawPage(embeddedKopSurat, {
                 x: 0,
@@ -463,20 +458,20 @@ const cetakTranskrip = async (req, res) => {
                 width: embeddedKopSurat.width,
                 height: embeddedKopSurat.height,
             });
-            
+
             // Perbesar skala dengan berpatokan pada lebar (scaleX). 
             // Kita kalikan 1.0 (lebar penuh) agar teksnya lebih besar dari sebelumnya.
             const scale = (embeddedKopSurat.width / embeddedTranskrip.width) * 1.0;
-            
+
             const scaledWidth = embeddedTranskrip.width * scale;
             const scaledHeight = embeddedTranskrip.height * scale;
-            
+
             // Posisikan di tengah secara horizontal
             const xPos = (embeddedKopSurat.width - scaledWidth) / 2;
-            
+
             // Geser ke bawah agar tidak menabrak Kop Surat (semakin besar angka offsetTop, semakin turun)
             // Diubah menjadi 10 agar lebih naik mendekati garis Kop Surat
-            const offsetTop = 10; 
+            const offsetTop = 40;
             const yPos = embeddedKopSurat.height - scaledHeight - offsetTop;
 
             // Draw Transkrip di atasnya
@@ -500,4 +495,184 @@ const cetakTranskrip = async (req, res) => {
     }
 };
 
-module.exports = { getAllSkl, createSkl, cetakSkl, deleteSkl, updateSkl, loginAdmin, uploadTranskrip, cetakTranskrip };
+const cetakBerkas = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // 1. Ambil data mahasiswa
+        const { data, error } = await supabase.from('skl_mahasiswa').select('*').eq('id', id).single();
+        if (error || !data) throw error || new Error("Data tidak ditemukan");
+
+        // --- GENERATE SKL PDF ---
+        const formatDateNormal = (dateString) => {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            return `${date.getDate()} ${bulan[date.getMonth()]} ${date.getFullYear()}`;
+        };
+        const formatBesarKecil = (teks) => {
+            if (!teks) return '-';
+            return teks.toLowerCase().split(' ').map(kata => kata.charAt(0).toUpperCase() + kata.substring(1)).join(' ');
+        };
+
+        const htmlContent = `
+        <!DOCTYPE html>
+        <html lang="id">
+        <head>
+            <meta charset="UTF-8">
+            <style>
+            body { font-family: 'Times New Roman', Times, serif; font-size: 11.5pt; line-height: 1.5; color: #000; padding: 0; margin: 0; position: relative; min-height: 100vh; }
+            p { margin-top: 5px; margin-bottom: 5px; }
+            .kop-surat { width: 100%; border-bottom: 3px solid black; margin-bottom: 20px; padding-bottom: 10px; }
+            .kop-surat td { vertical-align: middle; text-align: center; }
+            .kop-logo { width: 15%; }
+            .kop-logo img { width: 100px; } 
+            .kop-text { line-height: 1.1; }
+            .kementerian { font-size: 15pt; }
+            .sains { font-size: 16pt; }
+            .univ { font-size: 14pt; font-weight: bold; }
+            .fakultas { font-size: 14pt; font-weight: bold; }
+            .alamat { font-size: 11pt; }
+            .header { text-align: center; margin-bottom: 20px; line-height: 1.2; }
+            .header h3 { margin: 0; text-decoration: underline; font-size: 14pt; font-weight: bold;}
+            .header p { margin: 0; }
+            table.content { width: 100%; border-collapse: collapse; margin: 10px 0; table-layout: fixed; }
+            table.content td { padding: 1px 0; vertical-align: top; line-height: 1.25; }
+            .col-1 { width: 30%; }
+            .col-2 { width: 3%; text-align: left; }
+            .col-3 { width: 66%; text-align: justify;}
+            .signature-section { margin-top: calc(15px + 1cm); width: 100%; }
+            .photo-box { border: 1px solid #000; width: 2cm; height: 3cm; float: left; margin-left: calc(100px + 1.5cm); display: table; margin-top: 10px; }
+            .photo-text { display: table-cell; vertical-align: middle; text-align: center; font-size: 10pt; line-height: 1.2; }
+            .signature { float: right; width: 40%; padding-left: 20px; }
+            .clearfix::after { content: ""; clear: both; display: table; }
+            .footer-surat { width: 100%; position: absolute; bottom: 10px; left: 0; display: flex; justify-content: space-between; align-items: center; padding: 0px 8px; box-sizing: border-box; }
+            .logo-kiri { height: 70px; object-fit: contain; }
+            .logo-kanan { height: 70px; object-fit: contain; }
+            </style>
+        </head>
+        <body>
+            <table class="kop-surat">
+                <tr>
+                    <td class="kop-logo"><img src="${logoBase64}" alt="Logo Universitas Jember" style="width: 120px;"></td>
+                    <td class="kop-text">
+                        <span class="kementerian">KEMENTERIAN PENDIDIKAN TINGGI,</span><br>
+                        <span class="sains">SAINS, DAN TEKNOLOGI</span><br>
+                        <span class="univ">UNIVERSITAS JEMBER</span><br>
+                        <span class="fakultas">FAKULTAS EKONOMI DAN BISNIS</span><br>
+                        <span class="alamat">Jl. Kalimantan 37 - Kampus Bumi Tegal Boto Kotak Pos 159 Jember 68121<br>
+                        Telepon 0331-337990 Faximile 0331-332150<br>
+                        Email: feb@unej.ac.id Laman: www.feb.unej.ac.id</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="header">
+                <h3>SURAT KETERANGAN LULUS</h3>
+                <p>Nomor: ${data.nomor_surat || '......'}/DST/UN25.B4/LL/2026</p>
+            </div>
+            <p>Dekan Fakultas Ekonomi dan Bisnis menerangkan dengan sebenarnya, bahwa :</p>
+            <table class="content">
+                <tr><td class="col-1">Nama</td><td class="col-2">:</td><td class="col-3">${formatBesarKecil(data.nama_mahasiswa)}</td></tr>
+                <tr><td>NIM</td><td>:</td><td>${data.nim || '-'}</td></tr>
+                <tr><td>Jurusan</td><td>:</td><td>${formatBesarKecil(data.jurusan)}</td></tr>
+                <tr><td>Program Studi</td><td>:</td><td>${formatBesarKecil(data.program_studi)}</td></tr>
+                <tr><td>Tempat/ Tgl. Lahir</td><td>:</td><td>${formatBesarKecil(data.tempat_lahir)}, ${formatBesarKecil(formatDateNormal(data.tanggal_lahir))}</td></tr>
+                <tr><td>Judul Tugas Akhir</td><td>:</td><td>${data.judul_tugas_akhir ? data.judul_tugas_akhir : '-'}</td></tr>
+                <tr><td>No. Ijasah Nasional</td><td>:</td><td>${data.nin || '-'}</td></tr>
+                <tr><td>No. Transkrip Nilai</td><td>:</td><td>${data.nomor_transkrip || '-'}</td></tr>
+                <tr><td>IPK</td><td>:</td><td>${parseFloat(data.ipk).toFixed(2)}</td></tr>
+                <tr><td>Predikat Kelulusan</td><td>:</td><td>${formatBesarKecil(data.predikat)}</td></tr>
+            </table>
+            <p style="text-align: justify; margin-top: 15px;">Berdasarkan Berita Acara Ujian tanggal ${formatDateNormal(data.tanggal_lulus)}, yang bersangkutan telah dinyatakan "LULUS" pada Jurusan ${data.jurusan} Program Studi ${data.program_studi} dan berhak mengikuti pelaksanaan wisuda. Ijasah dan Transkrip nilai masih dalam proses penyelesaian oleh Fakultas Ekonomi dan Bisnis Universitas Jember. Surat ini berlaku selama 3 (tiga) bulan sejak diterbitkan.</p>
+            <p style="text-align: justify;">Demikian Surat Keterangan ini dibuat agar dapat dipergunakan sebagaimana mestinya.</p>
+            <div class="signature-section clearfix">
+                <div class="photo-box"><div class="photo-text">Pas Photo 3x4</div></div>
+                <div class="signature">
+                    <p>Jember, ${formatDateNormal(data.tanggal_pembuatan_surat)}<br>Dekan,</p>
+                    <br><br><br>
+                    <p style="margin: 0;"><b>Prof. Dr. Isti Fadah, M.Si.</b></p>
+                    <p style="margin: 0;">NIP. 196610201990022001</p>
+                </div>
+            </div>
+            <div class="footer-surat">
+                <img src="${fibaaBase64}" alt="Logo FIBAA" class="logo-kiri">
+                <img src="${bluBase64}" alt="Logo BLU" class="logo-kanan">
+            </div>
+        </body>
+        </html>
+        `;
+
+        const browser = await puppeteer.launch({ headless: "new" });
+        const page = await browser.newPage();
+        await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+        const sklPdfBuffer = await page.pdf({
+            format: 'A4',
+            printBackground: true,
+            margin: { top: '1cm', right: '2.2cm', bottom: '0cm', left: '2.2cm' }
+        });
+        await browser.close();
+
+        // --- GENERATE TRANSKRIP PDF ---
+        let transkripPdfBuffer = null;
+        try {
+            const fileName = `transkrip_${id}.pdf`;
+            const { data: fileData, error: errFile } = await supabase.storage.from('transkrip').download(fileName);
+            if (!errFile && fileData) {
+                const transkripBuffer = await fileData.arrayBuffer();
+                const kopSuratPath = path.resolve(__dirname, '../assets/kop surat SKL.pdf');
+                if (fs.existsSync(kopSuratPath)) {
+                    const kopSuratBuffer = fs.readFileSync(kopSuratPath);
+                    const transkripPdfLoad = await PDFDocument.load(transkripBuffer);
+                    const kopSuratPdfLoad = await PDFDocument.load(kopSuratBuffer);
+                    const tempMergedPdf = await PDFDocument.create();
+                    const embeddedKopSurat = await tempMergedPdf.embedPage(kopSuratPdfLoad.getPages()[0]);
+                    const transkripPageIndices = transkripPdfLoad.getPageIndices();
+                    for (const idx of transkripPageIndices) {
+                        const transkripPage = transkripPdfLoad.getPages()[idx];
+                        const embeddedTranskrip = await tempMergedPdf.embedPage(transkripPage);
+                        const newPage = tempMergedPdf.addPage([embeddedKopSurat.width, embeddedKopSurat.height]);
+                        newPage.drawPage(embeddedKopSurat, {
+                            x: 0, y: 0, width: embeddedKopSurat.width, height: embeddedKopSurat.height,
+                        });
+                        const scale = (embeddedKopSurat.width / embeddedTranskrip.width) * 1.0;
+                        const scaledWidth = embeddedTranskrip.width * scale;
+                        const scaledHeight = embeddedTranskrip.height * scale;
+                        const xPos = (embeddedKopSurat.width - scaledWidth) / 2;
+                        const offsetTop = 40;
+                        const yPos = embeddedKopSurat.height - scaledHeight - offsetTop;
+                        newPage.drawPage(embeddedTranskrip, {
+                            x: xPos, y: yPos, width: scaledWidth, height: scaledHeight,
+                        });
+                    }
+                    transkripPdfBuffer = await tempMergedPdf.save();
+                }
+            }
+        } catch (err) {
+            console.log("Transkrip tidak ditemukan/gagal di-load untuk digabung.", err.message);
+        }
+
+        // --- MERGE SKL DAN TRANSKRIP ---
+        const finalPdf = await PDFDocument.create();
+        const sklDoc = await PDFDocument.load(sklPdfBuffer);
+        const sklPages = await finalPdf.copyPages(sklDoc, sklDoc.getPageIndices());
+        sklPages.forEach(p => finalPdf.addPage(p));
+
+        if (transkripPdfBuffer) {
+            const transkripDoc = await PDFDocument.load(transkripPdfBuffer);
+            const transkripPages = await finalPdf.copyPages(transkripDoc, transkripDoc.getPageIndices());
+            transkripPages.forEach(p => finalPdf.addPage(p));
+        }
+
+        const mergedPdfBytes = await finalPdf.save();
+
+        res.setHeader('Content-Disposition', `inline; filename="Berkas_SKL_Transkrip_${data.nim}.pdf"`);
+        res.setHeader('Content-Type', 'application/pdf');
+        res.send(Buffer.from(mergedPdfBytes));
+
+    } catch (error) {
+        console.error("Error cetak berkas:", error);
+        res.status(500).json({ status: 'error', message: "Gagal mencetak berkas gabungan" });
+    }
+};
+
+module.exports = { getAllSkl, createSkl, cetakSkl, deleteSkl, updateSkl, loginAdmin, uploadTranskrip, cetakTranskrip, cetakBerkas };

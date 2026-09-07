@@ -135,12 +135,46 @@ createApp({
             }
         },
 
-        cetakPDF(id) {
-            window.open(`${this.apiURL}/cetak/${id}`, '_blank');
+        async cetakPDF(id) {
+            const newWindow = window.open('', '_blank');
+            if (newWindow) newWindow.document.write('Memuat dokumen PDF...');
+            try {
+                const response = await axios.get(`${this.apiURL}/cetak/${id}?t=${new Date().getTime()}`, { responseType: 'blob' });
+                const fileURL = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+                if (newWindow) newWindow.location.href = fileURL;
+                else window.open(fileURL, '_blank');
+            } catch (error) {
+                if (newWindow) newWindow.close();
+                alert("Gagal mencetak PDF.");
+            }
         },
 
-        cetakTranskrip(id) {
-            window.open(`${this.apiURL}/cetak-transkrip/${id}`, '_blank');
+        async cetakTranskrip(id) {
+            const newWindow = window.open('', '_blank');
+            if (newWindow) newWindow.document.write('Memuat dokumen Transkrip...');
+            try {
+                const response = await axios.get(`${this.apiURL}/cetak-transkrip/${id}?t=${new Date().getTime()}`, { responseType: 'blob' });
+                const fileURL = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+                if (newWindow) newWindow.location.href = fileURL;
+                else window.open(fileURL, '_blank');
+            } catch (error) {
+                if (newWindow) newWindow.close();
+                alert("Gagal mencetak Transkrip.");
+            }
+        },
+
+        async cetakBerkas(id) {
+            const newWindow = window.open('', '_blank');
+            if (newWindow) newWindow.document.write('Memuat dokumen Berkas...');
+            try {
+                const response = await axios.get(`${this.apiURL}/cetak-berkas/${id}?t=${new Date().getTime()}`, { responseType: 'blob' });
+                const fileURL = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+                if (newWindow) newWindow.location.href = fileURL;
+                else window.open(fileURL, '_blank');
+            } catch (error) {
+                if (newWindow) newWindow.close();
+                alert("Gagal mencetak Berkas.");
+            }
         },
 
         clearForm() {

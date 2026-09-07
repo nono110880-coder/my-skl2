@@ -42,7 +42,11 @@
                                 <option v-if="form.jurusan === 'Ilmu Ekonomi dan Studi Pembangunan'" value="S1 Ekonomi Pembangunan">S1 Ekonomi Pembangunan</option>
                                 <option v-if="form.jurusan === 'Ilmu Ekonomi dan Studi Pembangunan'" value="S1 Ekonomi Syariah">S1 Ekonomi Syariah</option>   
                                 <option v-if="form.jurusan === 'Manajemen'" value="S1 Manajemen">S1 Manajemen</option>
+                                <option v-if="form.jurusan === 'Manajemen'" value="Manajemen Perusahaan">Manajemen Perusahaan</option>
+                                <option v-if="form.jurusan === 'Manajemen'" value="Administrasi Keuangan">Administrasi Keuangan</option>
+                                <option v-if="form.jurusan === 'Manajemen'" value="Kesekretariatan">Kesekretariatan</option>
                                 <option v-if="form.jurusan === 'Akuntansi'" value="S1 Akuntansi">S1 Akuntansi</option>
+                                <option v-if="form.jurusan === 'Akuntansi'" value="D3 Akuntansi">D3 Akuntansi</option>
                             </select>
                         </div>
 
@@ -129,7 +133,11 @@
                     <option value="S1 Ekonomi Pembangunan">S1 Ekonomi Pembangunan</option>
                     <option value="S1 Ekonomi Syariah">S1 Ekonomi Syariah</option>
                     <option value="S1 Manajemen">S1 Manajemen</option>
+                    <option value="Manajemen Perusahaan">Manajemen Perusahaan</option>
+                    <option value="Administrasi Keuangan">Administrasi Keuangan</option>
+                    <option value="Kesekretariatan">Kesekretariatan</option>
                     <option value="S1 Akuntansi">S1 Akuntansi</option>
+                    <option value="D3 Akuntansi">D3 Akuntansi</option>
                 </select>
 
                 <input type="text" v-model="searchQuery" class="form-control form-control-sm w-100" placeholder="Cari NIM / Nama..." style="background-color: rgba(255,255,255,0.8); color: black;">
@@ -164,8 +172,7 @@
                                 <td>{{ item.nomor_surat }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-warning me-1 mb-1" @click="editData(item)">Edit</button>
-                                    <button class="btn btn-sm btn-success me-1 mb-1" @click="cetakTranskrip(item.id)">Cetak Transkrip</button>
-                                    <button class="btn btn-sm btn-info mb-1" @click="cetakPDF(item.id)">Cetak SKL</button>
+                                    <button class="btn btn-sm btn-primary mb-1" @click="cetakBerkas(item.id)">Cetak Berkas</button>
                                 </td>
                             </tr>
                         </tbody>
