@@ -98,7 +98,12 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Predikat</label>
-                            <input type="text" v-model="form.predikat" class="form-control">
+                            <select v-model="form.predikat" class="form-select">
+                                <option value="">Pilih Predikat</option>
+                                <option value="Memuaskan">Memuaskan</option>
+                                <option value="Sangat Memuaskan">Sangat Memuaskan</option>
+                                <option value="Dengan Pujian">Dengan Pujian</option>
+                            </select>
                         </div>
                         
                         <div class="col-md-6 mb-3">
